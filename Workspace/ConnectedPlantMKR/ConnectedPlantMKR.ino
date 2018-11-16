@@ -32,23 +32,19 @@ void setup() {
 // the loop function runs over and over again forever
 void loop() {
   int light = analogRead(A0);
-  int humidity = analogRead(A1);
+  
   Serial.print("light: ");
   Serial.println(light);
-  Serial.print("Humidity: ");
-  Serial.println(humidity);
+ 
 
   int lightPercentage = map(light, 0, 1023, 0, 100);
-  int humidityPercentage = map(humidity, 0, 1023, 0, 100);
   Serial.print("light percentage: ");
   Serial.print(lightPercentage);
   Serial.println(" % ");
-  Serial.print("Humidity percentage: ");
-  Serial.print(humidityPercentage);
-  Serial.println(" % ");
+ 
   
   msg[0]=lightPercentage;
-  msg[1]=humidityPercentage;
+
 
   sendMessage(msg, 2);
 
@@ -57,7 +53,7 @@ void loop() {
   // 1% of 3600 sec = 36 sec
   // A Sigfox message takes 6 seconds to emit 
   // 36 sec / 6 sec = 6 messages per hours -> 1 every 10 minutes
-  delay(10*60*1000);
+  delay(1*60*1000);
 }
 
 void blink(){
@@ -153,4 +149,3 @@ void sendMessage(uint8_t msg[], int size){
     Serial.println(status);
   }
 }
-
